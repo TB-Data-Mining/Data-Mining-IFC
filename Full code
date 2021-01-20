@@ -1,0 +1,46 @@
+#lokasi file
+setwd("D:/DATA MINING/TB")
+
+#pembacaan dataset 
+dataset <-read.csv("accent-mfcc-data-1.csv", sep = ";")
+
+#install library
+#install.packages("C50")
+#install.packages("printr")
+
+#load library
+library(C50)
+library(printr)
+
+dataset$language <- as.factor(dataset$language)
+dataset$X1 <- as.numeric(dataset$X1)
+dataset$X2 <- as.numeric(dataset$X2)
+dataset$X3 <- as.numeric(dataset$X3)
+dataset$X4 <- as.numeric(dataset$X4)
+dataset$X5 <- as.numeric(dataset$X5)
+dataset$X6 <- as.numeric(dataset$X6)
+dataset$X7 <- as.numeric(dataset$X7)
+dataset$X8 <- as.numeric(dataset$X8)
+dataset$X9 <- as.numeric(dataset$X9)
+dataset$X10 <- as.numeric(dataset$X10)
+dataset$X11 <- as.numeric(dataset$X11)
+dataset$X12 <- as.numeric(dataset$X12)
+
+#pembuatan model
+model <- C5.0(y ~., data=dataset)
+
+#melihat hasil model 
+model
+summary(model)
+
+#gambar model
+plot(model)
+
+#membuat dataset
+datatesting <-dataset[,1:12]
+
+#prediksi
+predictions <-predict(model, datatesting)
+
+#bandingkan hasil prediksi dengan dataset
+table(predictions, dataset$y)
